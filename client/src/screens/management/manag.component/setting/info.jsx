@@ -383,68 +383,68 @@ const Info = () => {
     setlocationUrl(extractedSrc);
   };
 
-const handleCreateRestaurant = async (e) => {
-  e.preventDefault();
-  const config = await handleGetTokenAndConfig();
+  const handleCreateRestaurant = async (e) => {
+    e.preventDefault();
+    const config = await handleGetTokenAndConfig();
+    try {
+      const address = {
+        country: country ? country : null,
+        city: city ? city : null,
+        state: state ? state : null,
+        street: street ? street : null,
+        postal_code: postalCode ? postalCode : null,
+      };
+      
+      const requestData = {
+        name,
+        description,
+        address,
+        website: website ? website : null,
+        image,
+        locationUrl,
+        aboutText,
+        dineIn,
+        takeAway,
+        deliveryService,
+        usesReservationSystem,
+        salesTaxRate,
+        serviceTaxRate,
+      };
+      console.log({ requestData });
+      let response;
+      if (restaurantId) {
+        response = await axios.put(
+          `${apiUrl}/api/restaurant/${restaurantId}`,
+          requestData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              ...config.headers,
+            },
+          }
+        );
+      } else {
+        response = await axios.post(`${apiUrl}/api/restaurant/`, requestData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            ...config.headers,
+          },
+        });
+      }
 
-  try {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("aboutText", aboutText);
-    formData.append("website", website);
-    formData.append("dineIn", dineIn);
-    formData.append("takeAway", takeAway);
-    formData.append("deliveryService", deliveryService);
-    formData.append("usesReservationSystem", usesReservationSystem);
-    formData.append("salesTaxRate", salesTaxRate);
-    formData.append("serviceTaxRate", serviceTaxRate);
-
-    // فقط إذا تم اختيار صورة
-    if (image) {
-      formData.append("image", image);
+      if (response.status === 200 || response.status === 201) {
+        toast.success(
+          restaurantId ? "تم تحديث المطعم بنجاح" : "تمت إضافة المطعم بنجاح"
+        );
+        getRestaurant(); // تحديث البيانات أو إعادة توجيه المستخدم
+      } else {
+        toast.error("حدث خطأ أثناء معالجة الطلب");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("حدث خطأ أثناء إضافة/تحديث المطعم");
     }
-
-    if (locationUrl) {
-      formData.append("locationUrl", locationUrl);
-    }
-
-    const address = {
-      country: country || "",
-      state: state || "",
-      city: city || "",
-      street: street || "",
-      postal_code: postalCode || "",
-    };
-    formData.append("address", JSON.stringify(address));
-
-    console.log({restaurant: formData})
-
-    let response;
-    if (restaurantId) {
-      response = await axios.put(
-        `${apiUrl}/api/restaurant/${restaurantId}`,
-        formData,
-        { headers: { ...config.headers } }
-      );
-    } else {
-      response = await axios.post(`${apiUrl}/api/restaurant/`, formData, {
-        headers: { ...config.headers },
-      });
-    }
-
-    if ([200, 201].includes(response.status)) {
-      toast.success(restaurantId ? "تم تحديث المطعم بنجاح" : "تمت إضافة المطعم بنجاح");
-      getRestaurant();
-    } else {
-      toast.error("حدث خطأ أثناء معالجة الطلب");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    toast.error("حدث خطأ أثناء إضافة/تحديث المطعم");
-  }
-};
-
+  };
 
   const [phone, setPhone] = useState([]);
   const [whatsapp, setWhatsapp] = useState("");
