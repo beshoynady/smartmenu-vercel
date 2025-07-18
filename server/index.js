@@ -24,7 +24,7 @@ const routeProduct = require("./router/Product.router.js");
 const routeRecipe = require("./router/Recipe.router.js");
 const routeProductionRecipe = require("./router/ProductionRecipe.router.js");
 const routeUser = require("./router/User.router.js");
-const routeClient = require("./router/Client.router.js");
+const routeCustomer = require("./router/Customer.router.js");
 const routeEmployee = require("./router/Employee.router.js");
 const routePayroll = require("./router/PayRoll.router.js");
 const routeEmployeeTransactions = require("./router/EmployeeTransactions.router.js");
@@ -107,10 +107,10 @@ app.use("/api/deliveryarea", routeDeliveryArea);
 app.use("/api/product", routeProduct);
 app.use("/api/recipe", routeRecipe);
 app.use("/api/menucategory", routeMenuCategory);
-app.use("/api/client", routeClient);
+app.use("/api/Customer", routeCustomer);
 app.use("/api/user", routeUser);
 app.use("/api/employee", routeEmployee);
-app.use("/api/clientmessage", routeMessage);
+app.use("/api/Customermessage", routeMessage);
 app.use("/api/payroll", routePayroll);
 app.use("/api/employeetransactions", routeEmployeeTransactions);
 app.use("/api/table", routeTable);
@@ -150,29 +150,29 @@ const io = socketIo(server, {
 
 // Handle socket.io connections
 // io.on('connect', (socket) => {
-//   console.log('New client connected');
+//   console.log('New Customer connected');
 
 //   // Listen for new order notifications
 //   socket.on('neworder', (notification) => {
 //     console.log("Notification received:", notification); // Confirm receipt
-//     // Emit the notification back to the client for testing purposes
+//     // Emit the notification back to the Customer for testing purposes
 //     socket.broadcast.emit('neworder', notification);
 //   });
 //   socket.on('orderkit', (notification) => {
 //     console.log("Notification received:", notification); // Confirm receipt
-//     // Emit the notification back to the client for testing purposes
+//     // Emit the notification back to the Customer for testing purposes
 //     socket.broadcast.emit('orderkit', notification);
 //   });
 
 //   socket.on('orderwaiter', (notification) => {
 //     console.log("Notification received:", notification); // Confirm receipt
-//     // Emit the notification back to the client for testing purposes
+//     // Emit the notification back to the Customer for testing purposes
 //     socket.broadcast.emit('orderwaiter', notification);
 //   });
 
 //   // Handle disconnect event
 //   socket.on('disconnect', () => {
-//     console.log('Client disconnected');
+//     console.log('Customer disconnected');
 //   });
 // });
 
