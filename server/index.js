@@ -146,6 +146,8 @@ const io = socketIo(server, {
   },
 });
 
+
+// old socket.io connections
 // Handle socket.io connections
 // io.on('connect', (socket) => {
 //   console.log('New client connected');
@@ -174,90 +176,94 @@ const io = socketIo(server, {
 //   });
 // });
 
-const cashierNamespace = io.of("/cashier");
-const kitchenNamespace = io.of("/kitchen");
-const BarNamespace = io.of("/bar");
-const GrillNamespace = io.of("/grill");
-const waiterNamespace = io.of("/waiter");
 
-// التعامل مع اتصالات الكاشير
-cashierNamespace.on("connection", (socket) => {
-  console.log("Cashier connected");
 
-  // استقبال إشعار من العميل إلى الكاشير
-  socket.on("neworder", (notification) => {
-    console.log("New order received:", notification);
-    // إرسال الإشعار إلى المطبخ
-    cashierNamespace.emit("neworder", notification);
-  });
+// ********** naw socket.io connections
 
-  socket.on("disconnect", () => {
-    console.log("Cashier disconnected");
-  });
-});
+// const cashierNamespace = io.of("/cashier");
+// const kitchenNamespace = io.of("/kitchen");
+// const BarNamespace = io.of("/bar");
+// const GrillNamespace = io.of("/grill");
+// const waiterNamespace = io.of("/waiter");
 
-// التعامل مع اتصالات المطبخ
-kitchenNamespace.on("connection", (socket) => {
-  console.log("Kitchen connected");
+// // التعامل مع اتصالات الكاشير
+// cashierNamespace.on("connection", (socket) => {
+//   console.log("Cashier connected");
 
-  socket.on("orderkitchen", (notification) => {
-    console.log("Order ready notification:", notification);
-    kitchenNamespace.emit("orderkitchen", notification);
-  });
+//   // استقبال إشعار من العميل إلى الكاشير
+//   socket.on("neworder", (notification) => {
+//     console.log("New order received:", notification);
+//     // إرسال الإشعار إلى المطبخ
+//     cashierNamespace.emit("neworder", notification);
+//   });
 
-  socket.on("disconnect", () => {
-    console.log("Kitchen disconnected");
-  });
-});
+//   socket.on("disconnect", () => {
+//     console.log("Cashier disconnected");
+//   });
+// });
 
-BarNamespace.on("connection", (socket) => {
-  console.log("Bar connected");
+// // التعامل مع اتصالات المطبخ
+// kitchenNamespace.on("connection", (socket) => {
+//   console.log("Kitchen connected");
 
-  socket.on("orderBar", (notification) => {
-    console.log("Order ready notification:", notification);
-    BarNamespace.emit("orderBar", notification);
-  });
+//   socket.on("orderkitchen", (notification) => {
+//     console.log("Order ready notification:", notification);
+//     kitchenNamespace.emit("orderkitchen", notification);
+//   });
 
-  socket.on("disconnect", () => {
-    console.log("Bar disconnected");
-  });
-});
+//   socket.on("disconnect", () => {
+//     console.log("Kitchen disconnected");
+//   });
+// });
 
-GrillNamespace.on("connection", (socket) => {
-  console.log("Grill connected");
+// BarNamespace.on("connection", (socket) => {
+//   console.log("Bar connected");
 
-  socket.on("orderGrill", (notification) => {
-    console.log("Order ready notification:", notification);
-    GrillNamespace.emit("orderGrill", notification);
-  });
+//   socket.on("orderBar", (notification) => {
+//     console.log("Order ready notification:", notification);
+//     BarNamespace.emit("orderBar", notification);
+//   });
 
-  socket.on("disconnect", () => {
-    console.log("Grill disconnected");
-  });
-});
+//   socket.on("disconnect", () => {
+//     console.log("Bar disconnected");
+//   });
+// });
 
-// التعامل مع اتصالات الويتر
-waiterNamespace.on("connection", (socket) => {
-  console.log("Waiter connected");
+// GrillNamespace.on("connection", (socket) => {
+//   console.log("Grill connected");
 
-  socket.on("orderReady", (notification) => {
-    console.log("Help request received:", notification);
-    waiterNamespace.emit("orderReady", notification);
-  });
-  socket.on("helprequest", (notification) => {
-    console.log("Help request received:", notification);
-    waiterNamespace.emit("helprequest", notification);
-  });
+//   socket.on("orderGrill", (notification) => {
+//     console.log("Order ready notification:", notification);
+//     GrillNamespace.emit("orderGrill", notification);
+//   });
 
-  socket.on("orderwaiter", (notification) => {
-    console.log("Order ready notification:", notification);
-    waiterNamespace.emit("orderwaiter", notification);
-  });
+//   socket.on("disconnect", () => {
+//     console.log("Grill disconnected");
+//   });
+// });
 
-  socket.on("disconnect", () => {
-    console.log("Waiter disconnected");
-  });
-});
+// // التعامل مع اتصالات الويتر
+// waiterNamespace.on("connection", (socket) => {
+//   console.log("Waiter connected");
+
+//   socket.on("orderReady", (notification) => {
+//     console.log("Help request received:", notification);
+//     waiterNamespace.emit("orderReady", notification);
+//   });
+//   socket.on("helprequest", (notification) => {
+//     console.log("Help request received:", notification);
+//     waiterNamespace.emit("helprequest", notification);
+//   });
+
+//   socket.on("orderwaiter", (notification) => {
+//     console.log("Order ready notification:", notification);
+//     waiterNamespace.emit("orderwaiter", notification);
+//   });
+
+//   socket.on("disconnect", () => {
+//     console.log("Waiter disconnected");
+//   });
+// });
 
 const port = process.env.PORT || 8000;
 
