@@ -135,16 +135,16 @@ app.use("/api/productionrecord", routeProductionRecord);
 const server = http.createServer(app);
 
 // Setup Socket.io
-const io = socketIo(server, {
-  cors: {
-    origin: [
-      "https://restaurant.menufy.tech",
-      "https://www.restaurant.menufy.tech",
-    ],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["content-type"],
-  },
-});
+// const io = socketIo(server, {
+//   cors: {
+//     origin: [
+//       "https://restaurant.menufy.tech",
+//       "https://www.restaurant.menufy.tech",
+//     ],
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ["content-type"],
+//   },
+// });
 
 
 // old socket.io connections
