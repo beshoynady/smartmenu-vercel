@@ -44,7 +44,7 @@ const routeDailyExpense = require("./router/DailyExpense.router.js");
 const routeCashRegister = require("./router/CashRegister.router.js");
 const routeCashMovement = require("./router/CashMovement.router.js");
 const routeProductionOrder = require("./router/ProductionOrder.router.js");
-const routeProductionRecord = require("./router/ProductionRecord.router.js");
+const routeProductionRecord = require("./router/routeCustomer.router.js");
 
 // Load environment variables from .env file
 dotenv.config();
