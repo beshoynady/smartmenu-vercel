@@ -68,8 +68,8 @@ app.set('trust proxy', 1);
 app.use(
   cors({
     origin: [
-      "https://restaurant-vite-zeta.vercel.app",
-      "https://www.restaurant-vite-zeta.vercel.app",
+      "https://smartmenu-vercel-client.vercel.app",
+      "https://www.smartmenu-vercel-client.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -140,8 +140,8 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: [
-      "https://restaurant-vite-zeta.vercel.app",
-      "https://www.restaurant-vite-zeta.vercel.app",
+      "https://smartmenu-vercel-client.vercel.app",
+      "https://www.smartmenu-vercel-client.vercel.app",
     ],
     methods: ["GET", "POST"],
     allowedHeaders: ["content-type"],
