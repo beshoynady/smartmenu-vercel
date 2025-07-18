@@ -24,7 +24,7 @@ const routeProduct = require("./router/Product.router.js");
 const routeRecipe = require("./router/Recipe.router.js");
 const routeProductionRecipe = require("./router/ProductionRecipe.router.js");
 const routeUser = require("./router/User.router.js");
-const routeCustomer = require("./router/Customer.router.js");
+const routeClient = require("./router/Client.router.js");
 const routeEmployee = require("./router/Employee.router.js");
 const routePayroll = require("./router/PayRoll.router.js");
 const routeEmployeeTransactions = require("./router/EmployeeTransactions.router.js");
@@ -62,12 +62,14 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(express.json({ limit: "100kb" })); // Limit request body size
 app.use(cookieParser()); // Parse cookies
 
+app.set('trust proxy', 1);
+
 // CORS setup
 app.use(
   cors({
     origin: [
-      "https://restaurant.menufy.tech",
-      "https://www.restaurant.menufy.tech",
+      "https://restaurant-vite-zeta.vercel.app",
+      "https://www.restaurant-vite-zeta.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -105,10 +107,10 @@ app.use("/api/deliveryarea", routeDeliveryArea);
 app.use("/api/product", routeProduct);
 app.use("/api/recipe", routeRecipe);
 app.use("/api/menucategory", routeMenuCategory);
-app.use("/api/customer", routeCustomer);
+app.use("/api/client", routeClient);
 app.use("/api/user", routeUser);
 app.use("/api/employee", routeEmployee);
-app.use("/api/message", routeMessage);
+app.use("/api/clientmessage", routeMessage);
 app.use("/api/payroll", routePayroll);
 app.use("/api/employeetransactions", routeEmployeeTransactions);
 app.use("/api/table", routeTable);
@@ -138,16 +140,14 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: [
-      "https://restaurant.menufy.tech",
-      "https://www.restaurant.menufy.tech",
+      "https://restaurant-vite-zeta.vercel.app",
+      "https://www.restaurant-vite-zeta.vercel.app",
     ],
     methods: ["GET", "POST"],
     allowedHeaders: ["content-type"],
   },
 });
 
-
-// old socket.io connections
 // Handle socket.io connections
 // io.on('connect', (socket) => {
 //   console.log('New client connected');
@@ -175,10 +175,6 @@ const io = socketIo(server, {
 //     console.log('Client disconnected');
 //   });
 // });
-
-
-
-// ********** naw socket.io connections
 
 const cashierNamespace = io.of("/cashier");
 const kitchenNamespace = io.of("/kitchen");
