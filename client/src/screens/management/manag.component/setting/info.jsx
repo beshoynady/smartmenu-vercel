@@ -929,7 +929,6 @@ const Info = () => {
                         type="text"
                         className="form-control border-primary col-12 p-1"
                         defaultValue={locationUrl}
-                        required
                         onChange={(e) => handleExtractSrc(e.target.value)}
                       />
                     </div>
@@ -957,6 +956,8 @@ const Info = () => {
                         value={salesTaxRate}
                         onChange={(e) => setsalesTaxRate(e.target.value)}
                         required
+                        min={0}
+                        max={100}
                       />
                     </div>
                   </div>
@@ -972,6 +973,8 @@ const Info = () => {
                         value={serviceTaxRate}
                         onChange={(e) => setserviceTaxRate(e.target.value)}
                         required
+                        min={0}
+                        max={100}
                       />
                     </div>
                   </div>
